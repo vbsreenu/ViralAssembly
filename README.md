@@ -26,13 +26,14 @@ _createRef taxID minLength_
 
 This will alos formats them for snap-aligner query and stores in **RefGenomes** directory. Now run 
 
-_insilicoEnrich.sh_ 
+**_insilicoEnrich.sh_**
 
 This script trims the host filtered reads using trim galore and extracts reads that are matching to any reference genomes. This assumes **hostFiltered-1.fq, hostFiltered-2.fq** and **RefGenomes** are in the same directory. It saves the enriched reads in **enrichedForDenovo-1.fq** and **enrichedForDenovo-2.fq** files.
 
-2) Iterative de novo assembly
+**2. Iterative de novo assembly**
+
 Now we run de novo read assembling programs with different k-mer sizes taking subsamples of the enriched reads. 
 
-_iterativeDeNovo.sh_
+**_iterativeDeNovo.sh_**
 
 Above script randomly subsamples reads from enrichedForDenovo-1.fa and enrichedForDenovo-2.fa and assembles them using Spades and IDBA-UD assemblers. It iterates the assembly process for 50 times and saves the longest contigs. 
