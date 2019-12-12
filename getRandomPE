@@ -1,0 +1,26 @@
+# Usage: getRandomPE file-1.fq file-2.fq 100
+#
+# First and second options are  fastq files and third option is number of reads to output
+
+# Developed by Sreenu Vattipally
+# 13/Nov/2015
+#
+
+totalReads=$(awk 'END{print NR/4}' $1);
+
+if [ $totalReads -gt $3 ]; then
+
+        awk '{if(NR%4==1) printf("\n%s",$0); else printf("\t%s",$0);}' $1|awk 'NF>0' > /tmp/tmp-1-$$
+        awk '{if(NR%4==1) printf("\n%s",$0); else printf("\t%s",$0);}' $2|awk 'NF>0' > /tmp/tmp-2-$$
+
+        lines=`awk 'END{print NR}' /tmp/tmp-2-$$`
+        awk 'BEGIN{ r=ARGV[1]; delete ARGV[1]; sbst=ARGV[2]; delete ARGV[2]; range=ARGV[3]; delete ARGV[3]; srand(r); for(i=1;i<=sbst+10;i++) a[i]=int(rand()*range+1); } {if(NR==FNR) one[FNR]=$0; else two[FNR]=$0; } END{for (i=1;i<=sbst;i++) { print one[a[i]] >> "/tmp/subset-1.fq"; print two[a[i]] >> "/tmp/subset-2.fq"; }}' $RANDOM $3 $lines /tmp/tmp-1-$$  /tmp/tmp-2-$$
+
+        awk 'NF>0' /tmp/subset-1.fq|awk -F'\t' '{print $1"\n"$2"\n"$3"\n"$4}' > subset-1.fq
+        awk 'NF>0' /tmp/subset-2.fq|awk -F'\t' '{print $1"\n"$2"\n"$3"\n"$4}' > subset-2.fq
+
+        rm /tmp/tmp-1-$$ /tmp/tmp-2-$$ /tmp/subset-1.fq /tmp/subset-2.fq
+else
+        cp $1 subset-1.fq
+        cp $2 subset-2.fq
+fi

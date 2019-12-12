@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+esearch -db=nuccore -query=txid$1|efetch -format fasta > refGenomes.fa
+seqFilter refGenomes.fa $2 > refGenomesFL.fa
+awk '{if($1~/>/) {i++; gsub(/>/,"",$1); print ">"i"|a|"$1;} else print}' refGenomesFL.fa > refGenomesFL-GT.fa
+
+#makeblastdb -in refGenomesFL-GT.fa -dbtype  nucl
+
+snap-aligner index refGenomesFL-GT.fa RefGenomes
