@@ -1,5 +1,14 @@
 #!/bin/bash
 
+#
+# Script for aligning reads to host genome and filter out matching sequences.
+#
+# Usage: hostFilter.sh file-1.fq file-2.fq HostGenome  (snap index directory) 
+
+# Developed by Sreenu Vattipally
+# 13/Nov/2015
+
+
         fq1=$1
         fq2=$2
 	ref=$3

@@ -1,5 +1,14 @@
 #!/bin/bash
 
+#
+# Script for aligning reads to reference genome and filter out unmatching sequences.
+#
+# Usage: insilicoEnrich.sh (hostFiltered-1.fq, hostFiltered-2.fq and RefGenomes should be in the directory)
+
+# Developed by Sreenu Vattipally
+# 13/Nov/2015
+
+
 	trim_galore -length 75 -q 30 --illumina --paired hostFiltered-1.fq hostFiltered-2.fq
 
 	snap-aligner paired RefGenomes hostFiltered-1_val_1.fq hostFiltered-2_val_2.fq -o Enriched-snap-$$.sam

@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 # Usage: getRandomPE file-1.fq file-2.fq 100
 #
 # First and second options are  fastq files and third option is number of reads to output

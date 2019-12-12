@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Script for runnong Spades and IDBA_UD iteratively with different k-mers and random subsampled reads.
+#
+# Usage: iterativeDeNovo.sh (enrichedForDenovo-1.fa and enrichedForDenovo-2.fa should be in the same directory)
+
+# Developed by Sreenu Vattipally
+# 13/Nov/2015
+
 # Seed random generator
 RANDOM=$$$(date +%s)
 contigLenSp=0;
